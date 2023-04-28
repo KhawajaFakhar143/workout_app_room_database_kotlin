@@ -1,5 +1,6 @@
 package com.example.workoutapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.FrameLayout
@@ -13,7 +14,8 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
         binding?.flStart?.setOnClickListener {
-            Toast.makeText(this,"Here we will Start the exercise",Toast.LENGTH_LONG).show()
+            var intent = Intent(this,ExerceActivity::class.java)
+            startActivity(intent)
         }
     }
 }

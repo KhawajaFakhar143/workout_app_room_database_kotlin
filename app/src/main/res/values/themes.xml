@@ -13,4 +13,7 @@
         <item name="android:statusBarColor">@color/colorPrimary</item>
         <!-- Customize your theme here. -->
     </style>
+    <style name="actionbar_theme" parent="ThemeOverlay.MaterialComponents.ActionBar">
+        <item name="colorControlNormal">@color/actionbar_color</item>
+    </style>
 </resources>
