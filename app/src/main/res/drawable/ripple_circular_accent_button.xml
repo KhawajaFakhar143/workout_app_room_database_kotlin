@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ripple xmlns:android="http://schemas.android.com/apk/res/android"
+    android:color="@color/colorLightGrey">
+    <item android:id="@+id/rippleEffect">
+        <shape
+            android:shape="oval">
+            <solid android:color="@color/white"/>
+        </shape>
+    </item>
+
+    <item android:drawable="@drawable/circular_accent_button_bg"/>
+
+</ripple>
