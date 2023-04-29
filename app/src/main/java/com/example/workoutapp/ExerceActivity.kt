@@ -3,6 +3,7 @@ package com.example.workoutapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.example.workoutapp.databinding.ActivityExerceBinding
@@ -13,11 +14,14 @@ class ExerceActivity : AppCompatActivity() {
     private var restTimer: Int = 0
     private var exerciseProgress: CountDownTimer? = null
     private var exerciseTimer: Int = 0
+    private var exerciseList : ArrayList<ExerciseModel>? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityExerceBinding.inflate(layoutInflater)
         setContentView(binding?.root)
         setSupportActionBar(binding?.toolBarExercise)
+        exerciseList = Constants.getExerciseList()
+        Log.i("Exercise list length","${exerciseList?.size}")
         if (supportActionBar != null) {
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
         }
@@ -26,6 +30,7 @@ class ExerceActivity : AppCompatActivity() {
         }
         binding?.flExerciseProgressBar?.visibility = View.GONE
         setupRestProgress()
+
     }
 
     private fun setupRestProgress() {
