@@ -15,13 +15,13 @@ class ExerceActivity : AppCompatActivity() {
     private var exerciseProgress: CountDownTimer? = null
     private var exerciseTimer: Int = 0
     private var exerciseList : ArrayList<ExerciseModel>? = null
+    private var currentExercisePosition = -1
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityExerceBinding.inflate(layoutInflater)
         setContentView(binding?.root)
         setSupportActionBar(binding?.toolBarExercise)
         exerciseList = Constants.getExerciseList()
-        Log.i("Exercise list length","${exerciseList?.size}")
         if (supportActionBar != null) {
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
         }
@@ -52,6 +52,7 @@ class ExerceActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
+                currentExercisePosition++
                 Toast.makeText(
                     this@ExerceActivity,
                     "Start Exercise",
