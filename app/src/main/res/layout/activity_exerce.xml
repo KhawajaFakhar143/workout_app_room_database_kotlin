@@ -40,6 +40,7 @@
         app:layout_constraintTop_toBottomOf="@+id/toolBarExercise">
 
         <ProgressBar
+            android:id="@+id/tvRestProgress"
             style="?android:attr/progressBarStyleHorizontal"
             android:layout_width="100dp"
             android:layout_height="100dp"

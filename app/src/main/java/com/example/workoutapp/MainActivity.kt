@@ -14,7 +14,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding?.root)
         binding?.flStart?.setOnClickListener {
-            var intent = Intent(this,ExerceActivity::class.java)
+            val intent = Intent(this,ExerceActivity::class.java)
             startActivity(intent)
         }
     }
