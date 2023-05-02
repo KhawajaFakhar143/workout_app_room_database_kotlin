@@ -3,12 +3,15 @@ package com.example.workoutapp
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.View
 import android.widget.Toast
 import com.example.workoutapp.databinding.ActivityExerceBinding
+import java.util.*
+import kotlin.collections.ArrayList
 
-class ExerceActivity : AppCompatActivity() {
+class ExerceActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private var binding: ActivityExerceBinding? = null
     private var restProgress: CountDownTimer? = null
     private var restTimer: Int = 0
@@ -16,6 +19,7 @@ class ExerceActivity : AppCompatActivity() {
     private var exerciseTimer: Int = 0
     private var exerciseList : ArrayList<ExerciseModel>? = null
     private var currentExercisePosition = -1
+    private var tts : TextToSpeech? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityExerceBinding.inflate(layoutInflater)
@@ -28,6 +32,7 @@ class ExerceActivity : AppCompatActivity() {
         binding?.toolBarExercise?.setNavigationOnClickListener {
             onBackPressed()
         }
+        tts = TextToSpeech(this,this)
         binding?.flExerciseProgressBar?.visibility = View.GONE
         setupRestProgress()
 
@@ -42,6 +47,8 @@ class ExerceActivity : AppCompatActivity() {
         binding?.tvUpComingExerciseNameText?.visibility = View.VISIBLE
         binding?.tvUpComingExercise?.visibility = View.VISIBLE
         binding?.tvUpComingExercise?.text = exerciseList!![currentExercisePosition+1].getName()
+        tts?.speak("Next Exercise ${binding?.tvUpComingExercise?.text}", TextToSpeech.QUEUE_FLUSH, null ,"")
+
         if (restProgress != null) {
             restProgress?.cancel()
             restTimer = 0
@@ -52,7 +59,7 @@ class ExerceActivity : AppCompatActivity() {
     private fun setRestProgress() {
         // binding?.tvRestProgress?.progress = restTimer
 
-        restProgress = object : CountDownTimer(1000, 1000) {
+        restProgress = object : CountDownTimer(10000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 restTimer++
                 binding?.tvRestProgress?.progress = 10 - restTimer
@@ -80,6 +87,7 @@ class ExerceActivity : AppCompatActivity() {
         binding?.tvUpComingExerciseNameText?.visibility = View.INVISIBLE
         binding?.tvUpComingExercise?.visibility = View.INVISIBLE
         binding?.tvExerciseImage?.setImageResource(exerciseList!![currentExercisePosition].getImage())
+        tts?.speak("Do ${binding?.tvExerciseName?.text} for 30 seconds", TextToSpeech.QUEUE_FLUSH, null ,"")
         if (exerciseProgress != null) {
             exerciseProgress?.cancel()
             exerciseTimer = 0
@@ -114,6 +122,18 @@ class ExerceActivity : AppCompatActivity() {
         if (exerciseProgress != null){
             exerciseProgress?.cancel()
             exerciseTimer = 0
+        }
+        if(tts != null){
+            tts?.shutdown()
+            tts?.stop()
+        }
+    }
+
+    override fun onInit(status: Int) {
+        if (status == TextToSpeech.SUCCESS) {
+            tts?.language = Locale.ENGLISH
+        } else {
+            Toast.makeText(this, "Failed To initialized Text to Speech", Toast.LENGTH_SHORT).show()
         }
     }
 }
