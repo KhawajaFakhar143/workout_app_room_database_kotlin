@@ -42,7 +42,6 @@ class ExerceActivity : AppCompatActivity() {
         binding?.tvUpComingExerciseNameText?.visibility = View.VISIBLE
         binding?.tvUpComingExercise?.visibility = View.VISIBLE
         binding?.tvUpComingExercise?.text = exerciseList!![currentExercisePosition+1].getName()
-
         if (restProgress != null) {
             restProgress?.cancel()
             restTimer = 0
