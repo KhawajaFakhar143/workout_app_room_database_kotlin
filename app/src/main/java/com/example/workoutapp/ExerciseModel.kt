@@ -8,7 +8,7 @@ class ExerciseModel(
     private var isFinished: Boolean = false
 ) {
     fun getId() : Int{
-        return  id
+        return  this.id
     }
 
     fun setInt(id : Int) {
@@ -16,14 +16,14 @@ class ExerciseModel(
     }
 
     fun getName() : String{
-        return name
+        return this.name
     }
     fun setName(name :String) {
         this.name = name
     }
 
     fun getImage(): Int {
-        return image
+        return this.image
     }
 
     fun setImage(image : Int) {
@@ -31,7 +31,7 @@ class ExerciseModel(
     }
 
     fun getIsSelected() : Boolean{
-        return  isSelected
+        return  this.isSelected
     }
 
     fun setIsSelected(isSelected: Boolean){
@@ -39,7 +39,7 @@ class ExerciseModel(
     }
 
     fun getIsFinished() : Boolean{
-        return isFinished
+        return this.isFinished
     }
 
     fun setIsFinished(isFinished: Boolean){

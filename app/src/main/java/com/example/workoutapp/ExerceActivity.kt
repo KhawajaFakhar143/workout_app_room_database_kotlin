@@ -34,6 +34,15 @@ class ExerceActivity : AppCompatActivity() {
     }
 
     private fun setupRestProgress() {
+        binding?.flProgressBar?.visibility = View.VISIBLE
+        binding?.flExerciseProgressBar?.visibility = View.INVISIBLE
+        binding?.tvTitle?.visibility = View.VISIBLE
+        binding?.tvExerciseName?.visibility = View.INVISIBLE
+        binding?.tvExerciseImage?.visibility = View.INVISIBLE
+        binding?.tvUpComingExerciseNameText?.visibility = View.VISIBLE
+        binding?.tvUpComingExercise?.visibility = View.VISIBLE
+        binding?.tvUpComingExercise?.text = exerciseList!![currentExercisePosition+1].getName()
+
         if (restProgress != null) {
             restProgress?.cancel()
             restTimer = 0
@@ -44,7 +53,7 @@ class ExerceActivity : AppCompatActivity() {
     private fun setRestProgress() {
         // binding?.tvRestProgress?.progress = restTimer
 
-        restProgress = object : CountDownTimer(10000, 1000) {
+        restProgress = object : CountDownTimer(1000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 restTimer++
                 binding?.tvRestProgress?.progress = 10 - restTimer
@@ -53,12 +62,10 @@ class ExerceActivity : AppCompatActivity() {
 
             override fun onFinish() {
                 currentExercisePosition++
-                Toast.makeText(
-                    this@ExerceActivity,
-                    "Start Exercise",
-                    Toast.LENGTH_LONG
-                ).show()
-                setupExerciseProgress()
+                if(currentExercisePosition+1 <= exerciseList!!.size){
+                    setupExerciseProgress()
+                }
+
             }
 
         }.start()
@@ -67,7 +74,13 @@ class ExerceActivity : AppCompatActivity() {
     private fun setupExerciseProgress() {
         binding?.flProgressBar?.visibility = View.INVISIBLE
         binding?.flExerciseProgressBar?.visibility = View.VISIBLE
-        binding?.tvTitle?.text = "JUMPING JACK"
+        binding?.tvTitle?.visibility = View.INVISIBLE
+        binding?.tvExerciseName?.visibility = View.VISIBLE
+        binding?.tvExerciseName?.text = exerciseList!![currentExercisePosition].getName()
+        binding?.tvExerciseImage?.visibility = View.VISIBLE
+        binding?.tvUpComingExerciseNameText?.visibility = View.INVISIBLE
+        binding?.tvUpComingExercise?.visibility = View.INVISIBLE
+        binding?.tvExerciseImage?.setImageResource(exerciseList!![currentExercisePosition].getImage())
         if (exerciseProgress != null) {
             exerciseProgress?.cancel()
             exerciseTimer = 0
@@ -76,7 +89,7 @@ class ExerceActivity : AppCompatActivity() {
     }
 
     private fun setExerciseProgress() {
-        exerciseProgress = object : CountDownTimer(30000, 1000) {
+        exerciseProgress = object : CountDownTimer(3000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 exerciseTimer++
                 binding?.tvExerciseRestProgress?.progress = 30 - exerciseTimer
@@ -84,11 +97,9 @@ class ExerceActivity : AppCompatActivity() {
             }
 
             override fun onFinish() {
-                Toast.makeText(
-                    this@ExerceActivity,
-                    "Jumping Jack finished",
-                    Toast.LENGTH_LONG
-                ).show()
+                if(currentExercisePosition+1 < exerciseList!!.size){
+                    setupRestProgress()
+                }
             }
 
         }.start()
