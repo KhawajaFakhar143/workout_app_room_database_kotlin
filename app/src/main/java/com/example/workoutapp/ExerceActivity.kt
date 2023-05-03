@@ -1,5 +1,6 @@
 package com.example.workoutapp
 
+import android.app.Dialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -11,6 +12,7 @@ import android.widget.LinearLayout
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.workoutapp.databinding.ActivityExerceBinding
+import com.example.workoutapp.databinding.CustomDialogueBoxBinding
 import java.util.*
 import kotlin.collections.ArrayList
 
@@ -34,13 +36,33 @@ class ExerceActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
         }
         binding?.toolBarExercise?.setNavigationOnClickListener {
-            onBackPressed()
+            customDialogueBack()
         }
         tts = TextToSpeech(this,this)
         binding?.flExerciseProgressBar?.visibility = View.GONE
         setupRestProgress()
         setupExerciseStatusView()
 
+
+    }
+    override fun onBackPressed() {
+        //super.onBackPressed()
+        customDialogueBack()
+    }
+
+    private fun customDialogueBack(){
+        val dialog = Dialog(this)
+        val dialogBinding = CustomDialogueBoxBinding.inflate(layoutInflater)
+        dialog.setContentView(dialogBinding.root)
+        dialog.setCanceledOnTouchOutside(false)
+        dialogBinding.btnYes.setOnClickListener {
+            this@ExerceActivity.finish()
+            dialog.dismiss()
+        }
+        dialogBinding.btnNo.setOnClickListener {
+            dialog.dismiss()
+        }
+        dialog.show()
     }
 
     private fun setupExerciseStatusView(){
