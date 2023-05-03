@@ -1,5 +1,6 @@
 package com.example.workoutapp
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.CountDownTimer
@@ -70,7 +71,7 @@ class ExerceActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private fun setRestProgress() {
         // binding?.tvRestProgress?.progress = restTimer
 
-        restProgress = object : CountDownTimer(10000, 1000) {
+        restProgress = object : CountDownTimer(3000, 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 restTimer++
                 binding?.tvRestProgress?.progress = 10 - restTimer
@@ -119,6 +120,10 @@ class ExerceActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             override fun onFinish() {
                 if(currentExercisePosition+1 < exerciseList!!.size){
                     setupRestProgress()
+                }else{
+                    val intent = Intent(this@ExerceActivity,FinishActivity::class.java)
+                    startActivity(intent)
+                    finish()
                 }
                 exerciseList!![currentExercisePosition].setIsSelected(false)
                 exerciseList!![currentExercisePosition].setIsFinished(true)
