@@ -22,6 +22,10 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             val intent = Intent(this, ExerceActivity::class.java)
             startActivity(intent)
         }
+        binding?.flBMIActivity?.setOnClickListener {
+            val intent = Intent(this, BMIActivity::class.java)
+            startActivity(intent)
+        }
 
     }
 
