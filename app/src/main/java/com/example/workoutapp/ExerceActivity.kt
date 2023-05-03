@@ -82,6 +82,8 @@ class ExerceActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 if(currentExercisePosition+1 <= exerciseList!!.size){
                     setupExerciseProgress()
                 }
+                exerciseList!![currentExercisePosition].setIsSelected(true)
+                exerciseStatusAdapter!!.notifyDataSetChanged()
 
             }
 
@@ -118,6 +120,9 @@ class ExerceActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
                 if(currentExercisePosition+1 < exerciseList!!.size){
                     setupRestProgress()
                 }
+                exerciseList!![currentExercisePosition].setIsSelected(false)
+                exerciseList!![currentExercisePosition].setIsFinished(true)
+                exerciseStatusAdapter!!.notifyDataSetChanged()
             }
 
         }.start()
