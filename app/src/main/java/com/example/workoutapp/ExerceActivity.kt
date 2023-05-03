@@ -6,7 +6,9 @@ import android.os.CountDownTimer
 import android.speech.tts.TextToSpeech
 import android.util.Log
 import android.view.View
+import android.widget.LinearLayout
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.workoutapp.databinding.ActivityExerceBinding
 import java.util.*
 import kotlin.collections.ArrayList
@@ -18,6 +20,7 @@ class ExerceActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
     private var exerciseProgress: CountDownTimer? = null
     private var exerciseTimer: Int = 0
     private var exerciseList : ArrayList<ExerciseModel>? = null
+    private var exerciseStatusAdapter : ExerciseStatusAdaptor? =null
     private var currentExercisePosition = -1
     private var tts : TextToSpeech? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +38,15 @@ class ExerceActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
         tts = TextToSpeech(this,this)
         binding?.flExerciseProgressBar?.visibility = View.GONE
         setupRestProgress()
+        setupExerciseStatusView()
 
+    }
+
+    private fun setupExerciseStatusView(){
+        exerciseStatusAdapter = ExerciseStatusAdaptor(exerciseList!!)
+        binding?.rvExerciseStatus?.layoutManager = LinearLayoutManager(
+            this,LinearLayoutManager.HORIZONTAL,false)
+        binding?.rvExerciseStatus?.adapter = exerciseStatusAdapter
     }
 
     private fun setupRestProgress() {
