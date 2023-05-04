@@ -27,6 +27,11 @@ class MainActivity : AppCompatActivity(), TextToSpeech.OnInitListener {
             startActivity(intent)
         }
 
+        binding?.flHistoryActivity?.setOnClickListener {
+            val intent = Intent(this, HistoryActivity::class.java)
+            startActivity(intent)
+        }
+
     }
 
     override fun onInit(status: Int) {
