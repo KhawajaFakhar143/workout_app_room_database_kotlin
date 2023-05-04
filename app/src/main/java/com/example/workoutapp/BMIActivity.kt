@@ -11,14 +11,15 @@ import java.math.BigDecimal
 import java.math.RoundingMode
 
 class BMIActivity : AppCompatActivity() {
-    private var binding: ActivityBmiactivityBinding? =null
+    private var binding: ActivityBmiactivityBinding? = null
+    private var isUSUnitsActive: Boolean = true
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityBmiactivityBinding.inflate(layoutInflater)
         setContentView(binding?.root)
         setSupportActionBar(binding?.toolBarBMI)
         println(supportActionBar != null)
-        if(supportActionBar != null){
+        if (supportActionBar != null) {
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             supportActionBar?.title = "Calculate BMI"
         }
@@ -26,39 +27,76 @@ class BMIActivity : AppCompatActivity() {
             onBackPressed()
         }
         binding?.btnCalculateBMI?.setOnClickListener {
-            if(validateMetricUnit()){
-            val weight = binding?.etMetricUnitWeight?.text.toString().toFloat()
-                val height = binding?.etMetricUnitHeight?.text.toString().toFloat()/100
+            calculateBMI()
+        }
 
-                val bmi = weight/(height*height)
+        binding?.rgMetrics?.setOnCheckedChangeListener { _, checkedId ->
+            onChangedRadioButton(
+                checkedId
+            )
+        }
+    }
+
+    private fun calculateBMI(){
+        if (isUSUnitsActive) {
+            if (validateUSUnits()){
+                val weight = binding?.etMetricUnitWeight?.text.toString().toFloat()
+                val height = ("${binding?.etFeet?.text.toString()}.${binding?.etInch?.text.toString()}")
+                    .toFloat() * 0.304f
+                val bmi = weight / (height * height)
                 displayBMIResult(bmi)
-
             }else{
                 Toast.makeText(
-                    this,"Please Enter Valid Values",
-                    Toast.LENGTH_SHORT).show()
+                    this, "Please Enter Valid Values in Units",
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+        } else {
+            if (validateMetricUnit()) {
+                val weight = binding?.etMetricUnitWeight?.text.toString().toFloat()
+                val height = binding?.etMetricUnitHeight?.text.toString().toFloat() / 100
+
+                val bmi = weight / (height * height)
+                displayBMIResult(bmi)
+
+            } else {
+                Toast.makeText(
+                    this, "Please Enter Valid Values in Metric",
+                    Toast.LENGTH_SHORT
+                ).show()
             }
         }
-        binding?.rgMetrics?.setOnCheckedChangeListener {
-                _, checkedId -> onChangedRadioButton(checkedId) }
     }
-    private fun onChangedRadioButton(checkedId : Int){
 
-        if (checkedId == binding?.rbMetricsUnits?.id){
+    private fun onChangedRadioButton(checkedId: Int) {
+
+        if (checkedId == binding?.rbMetricsUnits?.id) {
             binding?.tiMetricUnitHeight?.visibility = View.VISIBLE
             binding?.etMetricUnitHeight?.visibility = View.VISIBLE
             binding?.llUsUnitsView?.visibility = View.INVISIBLE
-        }else{
+            clearTextFields()
+            isUSUnitsActive = false
+        } else {
             binding?.tiMetricUnitHeight?.visibility = View.INVISIBLE
             binding?.etMetricUnitHeight?.visibility = View.INVISIBLE
             binding?.llUsUnitsView?.visibility = View.VISIBLE
+            clearTextFields()
+            isUSUnitsActive = true
         }
 
     }
 
-    private fun displayBMIResult(bmi: Float){
-        val bmiLabel : String
-        val bmiDescription : String
+    private fun clearTextFields(){
+        binding?.etMetricUnitWeight?.text?.clear()
+        binding?.etFeet?.text?.clear()
+        binding?.etInch?.text?.clear()
+        binding?.etMetricUnitHeight?.text?.clear()
+    }
+
+    private fun displayBMIResult(bmi: Float) {
+        val bmiLabel: String
+        val bmiDescription: String
 
         if (bmi.compareTo(15f) <= 0) {
             bmiLabel = "Very severely underweight"
@@ -100,16 +138,20 @@ class BMIActivity : AppCompatActivity() {
         binding?.tvWorkoutMotivateText?.text = bmiDescription
     }
 
+    private fun validateUSUnits(): Boolean {
+        var isValid = true
+        isValid = !(binding?.etMetricUnitWeight?.text.toString().isEmpty()
+                || binding?.etFeet?.text.toString().isEmpty()
+                || binding?.etInch?.text.toString().isEmpty())
+        return isValid
+    }
 
-    private fun validateMetricUnit() : Boolean{
-        var isValid = false
-        if(binding?.etMetricUnitWeight?.text.toString().isEmpty()){
-            isValid = false
-        }else if(binding?.etMetricUnitHeight?.text.toString().isEmpty()){
-            isValid = false
-        }else{
-            isValid = true
-        }
+
+    private fun validateMetricUnit(): Boolean {
+        var isValid = true
+        isValid = !(binding?.etMetricUnitWeight?.text.toString().isEmpty()
+                || binding?.etMetricUnitHeight?.text.toString().isEmpty())
+
         return isValid
     }
 }
