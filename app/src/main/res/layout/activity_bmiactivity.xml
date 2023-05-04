@@ -10,6 +10,7 @@
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
         android:theme="@style/actionbar_theme"
+
         app:layout_constraintTop_toTopOf="parent"
         app:titleTextColor="@color/black" />
     <com.google.android.material.textfield.TextInputLayout
@@ -28,7 +29,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Weight (in KG) "
-            android:inputType="textCapWords"
+            android:inputType="numberDecimal"
             android:textColor="#363A43"
             android:textColorHint="#7A8089" />
     </com.google.android.material.textfield.TextInputLayout>
@@ -49,7 +50,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Height (in cm) "
-            android:inputType="textCapWords"
+            android:inputType="numberDecimal"
             android:textColor="#363A43"
             android:textColorHint="#7A8089" />
     </com.google.android.material.textfield.TextInputLayout>
