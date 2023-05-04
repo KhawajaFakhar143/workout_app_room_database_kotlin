@@ -18,7 +18,7 @@ class BMIActivity : AppCompatActivity() {
         binding = ActivityBmiactivityBinding.inflate(layoutInflater)
         setContentView(binding?.root)
         setSupportActionBar(binding?.toolBarBMI)
-        println(supportActionBar != null)
+        binding?.etMetricUnitWeight?.hint = "WEIGHT(in pounds)"
         if (supportActionBar != null) {
             supportActionBar?.setDisplayHomeAsUpEnabled(true)
             supportActionBar?.title = "Calculate BMI"
@@ -42,8 +42,8 @@ class BMIActivity : AppCompatActivity() {
             if (validateUSUnits()){
                 val weight = binding?.etMetricUnitWeight?.text.toString().toFloat()
                 val height = ("${binding?.etFeet?.text.toString()}.${binding?.etInch?.text.toString()}")
-                    .toFloat() * 0.304f
-                val bmi = weight / (height * height)
+                    .toFloat() * 12
+                val bmi =( weight / (height * height))*703
                 displayBMIResult(bmi)
             }else{
                 Toast.makeText(
@@ -75,9 +75,11 @@ class BMIActivity : AppCompatActivity() {
             binding?.tiMetricUnitHeight?.visibility = View.VISIBLE
             binding?.etMetricUnitHeight?.visibility = View.VISIBLE
             binding?.llUsUnitsView?.visibility = View.INVISIBLE
+            binding?.etMetricUnitWeight?.hint = "WEIGHT (in KG)"
             clearTextFields()
             isUSUnitsActive = false
         } else {
+            binding?.etMetricUnitWeight?.hint ="WEIGHT (in pounds)"
             binding?.tiMetricUnitHeight?.visibility = View.INVISIBLE
             binding?.etMetricUnitHeight?.visibility = View.INVISIBLE
             binding?.llUsUnitsView?.visibility = View.VISIBLE

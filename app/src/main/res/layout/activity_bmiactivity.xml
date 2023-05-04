@@ -63,7 +63,7 @@
             android:id="@+id/etMetricUnitWeight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Weight (in KG) "
+            tools:hint="Weight (in KG) "
             android:inputType="numberDecimal"
             android:textColor="#363A43"
             android:textColorHint="#7A8089" />
