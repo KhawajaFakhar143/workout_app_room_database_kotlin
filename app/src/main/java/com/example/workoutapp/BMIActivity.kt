@@ -60,10 +60,7 @@ class BMIActivity : AppCompatActivity() {
         ) {
             bmiLabel = "Normal"
             bmiDescription = "Congratulations! You are in a good shape!"
-        } else if (java.lang.Float.compare(bmi, 25f) > 0 && java.lang.Float.compare(
-                bmi,
-                30f
-            ) <= 0
+        } else if (bmi.compareTo(25f) > 0 && bmi.compareTo(30f) <= 0
         ) {
             bmiLabel = "Overweight"
             bmiDescription = "Oops! You really need to take care of your yourself! Workout maybe!"

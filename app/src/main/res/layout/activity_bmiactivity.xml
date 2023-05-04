@@ -10,9 +10,44 @@
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
         android:theme="@style/actionbar_theme"
-
         app:layout_constraintTop_toTopOf="parent"
         app:titleTextColor="@color/black" />
+    <RadioGroup
+        android:id="@+id/rgMetrics"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/toolBarBMI"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:layout_margin="10dp"
+
+        android:orientation="horizontal"
+        android:background="@drawable/bmi_radio_group_bg">
+        <RadioButton
+            android:id="@+id/rbMetricsUnits"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_weight="0.50"
+            android:button="@null"
+            android:text="Metrics Units"
+            android:gravity="center"
+            android:checked="true"
+            android:textColor="@drawable/bmi_units_text_color_selector"
+            android:background="@drawable/bmi_units_tab_selector_selector"/>
+        <RadioButton
+            android:id="@+id/rbUsUnits"
+            android:layout_width="0dp"
+            android:layout_height="35dp"
+            android:layout_weight="0.50"
+            android:button="@null"
+            android:gravity="center"
+            android:checked="true"
+            android:text="US Units"
+            android:textColor="@drawable/bmi_units_text_color_selector"
+            android:background="@drawable/bmi_units_tab_selector_selector"/>
+
+    </RadioGroup>
+
     <com.google.android.material.textfield.TextInputLayout
         android:id="@+id/tiMetricUnitWeight"
         android:layout_width="match_parent"
@@ -21,7 +56,7 @@
         app:boxStrokeColor="@color/colorAccent"
         app:hintTextColor="@color/colorAccent"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
-        app:layout_constraintTop_toBottomOf="@+id/toolBarBMI"
+        app:layout_constraintTop_toBottomOf="@+id/rgMetrics"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent">
         <androidx.appcompat.widget.AppCompatEditText
@@ -116,6 +151,7 @@
         android:text="Calculate"
         android:textAllCaps="true"
         android:layout_margin="10dp"
+        android:backgroundTint="@color/colorAccent"
         app:layout_constraintTop_toBottomOf="@+id/llTextView"/>
 
 
