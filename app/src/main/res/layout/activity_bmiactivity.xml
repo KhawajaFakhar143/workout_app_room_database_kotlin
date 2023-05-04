@@ -75,6 +75,8 @@
         android:layout_height="70dp"
         android:layout_margin="10dp"
         app:boxStrokeColor="@color/colorAccent"
+        android:visibility="invisible"
+        tools:visibility="visible"
         app:hintTextColor="@color/colorAccent"
         style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
         app:layout_constraintTop_toBottomOf="@+id/tiMetricUnitWeight"
@@ -84,11 +86,69 @@
             android:id="@+id/etMetricUnitHeight"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Height (in cm) "
+            android:hint="Height (in cm)"
+            android:visibility="invisible"
+            tools:visibility="visible"
+            android:layout_gravity="center"
             android:inputType="numberDecimal"
             android:textColor="#363A43"
             android:textColorHint="#7A8089" />
     </com.google.android.material.textfield.TextInputLayout>
+    <LinearLayout
+        android:id="@+id/llUsUnitsView"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:orientation="horizontal"
+        android:layout_margin="10dp"
+        android:visibility="visible"
+        tools:visibility="invisible"
+        app:layout_constraintTop_toBottomOf="@+id/tiMetricUnitWeight"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent">
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tiFeet"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_weight="0.5"
+            app:boxStrokeColor="@color/colorAccent"
+            app:hintTextColor="@color/colorAccent"
+            android:layout_marginEnd="5dp"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:layout_constraintTop_toBottomOf="@+id/tiMetricUnitWeight"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/etFeet"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Feet"
+                android:inputType="numberDecimal"
+                android:textColor="#363A43"
+                android:textColorHint="#7A8089" />
+        </com.google.android.material.textfield.TextInputLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            android:id="@+id/tiInch"
+            android:layout_width="0dp"
+            android:layout_height="70dp"
+            android:layout_weight="0.5"
+            android:layout_marginStart="5dp"
+            app:boxStrokeColor="@color/colorAccent"
+            app:hintTextColor="@color/colorAccent"
+            style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox"
+            app:layout_constraintTop_toBottomOf="@+id/tiMetricUnitWeight"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintEnd_toEndOf="parent">
+            <androidx.appcompat.widget.AppCompatEditText
+                android:id="@+id/etInch"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="Inch"
+                android:inputType="numberDecimal"
+                android:textColor="#363A43"
+                android:textColorHint="#7A8089" />
+        </com.google.android.material.textfield.TextInputLayout>
+    </LinearLayout>
+
 
     <LinearLayout
         android:id="@+id/llTextView"

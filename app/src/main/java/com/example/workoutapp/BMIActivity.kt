@@ -39,6 +39,21 @@ class BMIActivity : AppCompatActivity() {
                     Toast.LENGTH_SHORT).show()
             }
         }
+        binding?.rgMetrics?.setOnCheckedChangeListener {
+                _, checkedId -> onChangedRadioButton(checkedId) }
+    }
+    private fun onChangedRadioButton(checkedId : Int){
+
+        if (checkedId == binding?.rbMetricsUnits?.id){
+            binding?.tiMetricUnitHeight?.visibility = View.VISIBLE
+            binding?.etMetricUnitHeight?.visibility = View.VISIBLE
+            binding?.llUsUnitsView?.visibility = View.INVISIBLE
+        }else{
+            binding?.tiMetricUnitHeight?.visibility = View.INVISIBLE
+            binding?.etMetricUnitHeight?.visibility = View.INVISIBLE
+            binding?.llUsUnitsView?.visibility = View.VISIBLE
+        }
+
     }
 
     private fun displayBMIResult(bmi: Float){
